@@ -1,0 +1,76 @@
+adjust-underline-position = 8
+adjust-underline-thickness = 2
+alpha-blending = linear-corrected
+auto-update-channel = "tip"
+cursor-invert-fg-bg = true
+custom-shader-animation = "always"
+macos-icon = "custom-style"
+macos-icon-frame = "aluminum"
+macos-icon-ghost-color = "86e1fc"
+macos-icon-screen-color = "222436"
+macos-option-as-alt = "true"
+mouse-hide-while-typing = "true"
+shell-integration-features = no-cursor
+unfocused-split-fill = "#000000"
+
+keybind = "global:super+ctrl+.=toggle_quick_terminal"
+
+# Make ctrl+enter act like enter. I often hit ctrl+enter by mistake and
+# ghostty sends ";5;13~" characters, which is extremely annoying.
+# https://github.com/ghostty-org/ghostty/discussions/3151#discussioncomment-11678064
+keybind = ctrl+enter=text:\r
+
+# Ghostty bindings with NAMES such as "equal" or "bracket_*" map to the
+# physical KEY on the keyboard regardless of the input layout (qwerty,
+# dvorak). Because I type in dvorak, these binding must be unset as they
+# map to the wrong keys.
+keybind = super++=unbind
+keybind = super+equal=unbind
+keybind = super+bracket_left=unbind
+keybind = super+shift+bracket_left=unbind
+keybind = super+bracket_right=unbind
+keybind = super+shift+bracket_right=unbind
+
+# Ghostty bindings defined to characters such a "=", "[", and "]" map to the
+# intended key in the current input layout. For example, when the layout is
+# dvorak, "[" maps to the physical key labeled as "-". This gives us bindings
+# that work in dvorak.
+keybind = super+==increase_font_size:1
+keybind = super+[=goto_split:previous
+keybind = super+shift+[=previous_tab
+keybind = super+]=goto_split:next
+keybind = super+shift+]=next_tab
+
+# Jump between shell prompts
+keybind = super+shift+up=jump_to_prompt:-1
+keybind = super+shift+down=jump_to_prompt:1
+
+# The following function is in my .zshrc, which allows me to use fzf to
+# execute Ghostty configuration snippets. I use this to quickly switch between
+# fonts for example instead of having to edit my config file constantly. See
+# write up in this Github issue:
+# https://github.com/ghostty-org/ghostty/discussions/3527
+#
+#   function gc {
+#     local GHOSTTY_DIR="$HOME/.config/ghostty"
+#     local CMD="sed -i '' 's:\(config-file = {1}\)/.*:\1/{2}:' $GHOSTTY_DIR/config && osascript -so -e 'tell application \"Ghostty\" to activate' -e 'tell application \"System Events\" to keystroke \",\" using {command down, shift down}'"
+#     fd \
+#       --type f \
+#       --exclude 'config' \
+#       --base-directory $GHOSTTY_DIR \
+#     | fzf \
+#       --header="<ctrl-y> :: enable, don't exit" \
+#       --preview "cat $GHOSTTY_DIR/{}" \
+#       --delimiter=/ \
+#       --bind="enter:become:$CMD"
+#   }
+
+config-file = font/name-mono-casual
+config-file = leading/default
+config-file = theme/tokyonight-moon
+config-file = opacity/80%
+config-file = shader/none
+config-file = thicken/on
+config-file = oldstyle/on
+
+# vim: ft=config

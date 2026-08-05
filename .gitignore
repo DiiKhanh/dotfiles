@@ -1,0 +1,16 @@
+# Never commit secrets or machine-generated state.
+# SSH: only the redacted template is tracked. Keep the real config and every
+# key out - the real ~/.ssh/config is seeded from the template, never pushed.
+ssh/*
+!ssh/config.example
+
+# Claude Code local/secret state (only settings.json + rules are tracked).
+claude/settings.local.json
+claude/history.jsonl
+claude/sessions/
+claude/projects/
+
+# macOS / editor cruft
+.DS_Store
+*.bak.*
+*.swp

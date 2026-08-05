@@ -1,0 +1,41 @@
+{
+    "window.commandCenter": true,
+    "cursor.composer.usageSummaryDisplay": "always",
+    "workbench.fontAliasing": "auto",
+    "editor.lineHeight": 1.6,
+    "editor.fontFamily": "\"JetBrains Mono\", monospace",
+    "editor.fontLigatures": "'calt' on, 'liga' off, 'zero' on, 'ss11' on, 'ss08' on",
+    "editor.fontSize": 12,
+    "terminal.integrated.profiles.osx": {
+        "zsh": {
+        "path": "/opt/homebrew/bin/zsh",
+        "args": ["-l"]
+        }
+    },
+    "terminal.integrated.automationProfile.osx": {
+        "path": "/opt/homebrew/bin/zsh",
+        "args": ["-i"]
+    },
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.lineHeight": 1.1,
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.cursorStyleInactive": "none",
+    "terminal.integrated.cursorWidth": 2,
+    "terminal.integrated.suggest.enabled": false,
+    "terminal.integrated.suggest.inlineSuggestion": "off",
+    "terminal.integrated.shellIntegration.decorationsEnabled": "never",
+    "terminal.integrated.shellIntegration.showCommandGuide": false,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "terminal.integrated.tabs.enableAnimation": false,
+    "terminal.integrated.tabStopWidth": 2,
+    "terminal.integrated.drawBoldTextInBrightColors": false,
+    "terminal.integrated.minimumContrastRatio": 1,
+    "terminal.integrated.copyOnSelection": true,
+    "terminal.integrated.commandsToSkipShell": ["workbench.action.closePanel"],
+    "terminal.integrated.gpuAcceleration": "on",
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.initialHint": false,
+    "terminal.integrated.hideOnStartup": "always",
+    "terminal.integrated.tabs.showActions": "never",
+}

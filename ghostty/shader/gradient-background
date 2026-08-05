@@ -1,0 +1,5 @@
+custom-shader = ~/.config/ghostty/shader/gradient-background.glsl
+
+
+
+# vim: ft=config

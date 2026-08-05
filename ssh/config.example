@@ -1,0 +1,17 @@
+# SSH config template.
+#
+# Copy this to ~/.ssh/config and fill in your real values. This file is a
+# PUBLIC template - never put private keys, real usernames, or real hostnames
+# here. Private keys live only in ~/.ssh on each machine.
+
+# GitHub identity (duplicate this block per account: github-work, github-perso...)
+Host github-xxx
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/PLACEHOLDER_KEY
+  IdentitiesOnly yes
+
+# Example: reach a private host over Cloudflare Access.
+Host ssh.placeholder.example
+  User PLACEHOLDER_USER
+  ProxyCommand cloudflared access ssh --hostname %h
