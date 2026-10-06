@@ -11,6 +11,8 @@ script, and get the familiar setup back.
 | Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
 | Ghostty | `ghostty/` | `~/.config/ghostty` |
 | Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
+| Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
+| OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
 | SSH | `ssh/config.example` | seeded to `~/.ssh/config` if absent (not symlinked) |
 | Cursor | `cursor/settings.json`, `cursor/keybindings.json` | `~/Library/Application Support/Cursor/User/…` |
 | Homebrew | `Brewfile` | installed via `brew bundle` |

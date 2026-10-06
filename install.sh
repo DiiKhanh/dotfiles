@@ -68,6 +68,12 @@ link "claude/settings.json"       "$HOME/.claude/settings.json"
 link "claude/rules"               "$HOME/.claude/rules"
 link "home/AGENTS.md"             "$HOME/.claude/CLAUDE.md"
 
+echo "Codex:"
+link "home/AGENTS.md"             "$HOME/.codex/AGENTS.md"
+
+echo "OMP:"
+link "home/AGENTS.md"             "$HOME/.omp/agent/AGENTS.md"
+
 echo "SSH (template - seeded, not symlinked, to keep real values private):"
 run "mkdir -p \"$HOME/.ssh\""
 run "chmod 700 \"$HOME/.ssh\" 2>/dev/null || true"
