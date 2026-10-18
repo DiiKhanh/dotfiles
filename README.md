@@ -14,7 +14,6 @@ script, and get the familiar setup back.
 | Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
 | OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
 | SSH | `ssh/config.example` | seeded to `~/.ssh/config` if absent (not symlinked) |
-| Cursor | `cursor/settings.json`, `cursor/keybindings.json` | `~/Library/Application Support/Cursor/User/…` |
 | Homebrew | `Brewfile` | installed via `brew bundle` |
 
 ## New machine setup
@@ -26,7 +25,7 @@ cd ~/dotfiles
 ```
 
 `bootstrap.sh` installs Homebrew, the `Brewfile` packages (CLI + casks like
-Raycast/Ghostty/Cursor), Oh My Zsh + plugins, SDKMAN, nvm + Node LTS, then runs
+Raycast/Ghostty), Oh My Zsh + plugins, SDKMAN, nvm + Node LTS, then runs
 `install.sh` to symlink every config.
 
 Already have the tools and only want the symlinks:

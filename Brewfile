@@ -34,7 +34,6 @@ cask "raycast"
 # GUI apps installed outside brew on the source machine, added here so a
 # fresh machine gets them too. Remove any you do not want.
 cask "ghostty"
-cask "cursor"
 # cask "android-studio"
 go "golang.org/x/tools/gopls"
 npm "pnpm"

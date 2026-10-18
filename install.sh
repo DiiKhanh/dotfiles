@@ -85,9 +85,5 @@ else
   run "chmod 600 \"$HOME/.ssh/config\""
 fi
 
-echo "Cursor:"
-link "cursor/settings.json"       "$HOME/Library/Application Support/Cursor/User/settings.json"
-link "cursor/keybindings.json"    "$HOME/Library/Application Support/Cursor/User/keybindings.json"
-
 echo
 echo "Done. Backups (if any) use the suffix .bak.$TS"

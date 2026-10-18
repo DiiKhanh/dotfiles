@@ -10,7 +10,7 @@ When updating this file, preserve this bar for all agents and keep entries conci
 ## What this repo is
 
 Symlink-based macOS dotfiles. `install.sh` links files from topic dirs
-(`zsh/`, `git/`, `ghostty/`, `claude/`, `ssh/`, `cursor/`) into `$HOME`.
+(`zsh/`, `git/`, `ghostty/`, `claude/`, `ssh/`) into `$HOME`.
 Authoritative map of every managed file: `README.md` and the `link` calls in
 `install.sh`. `bootstrap.sh` provisions a fresh machine (brew, Brewfile, omz,
 sdkman, nvm) then calls `install.sh`.
@@ -32,7 +32,7 @@ sdkman, nvm) then calls `install.sh`.
   existing real file to `<dest>.bak.<timestamp>` before linking. Preserve that
   behavior. Verify changes with `DRY_RUN=1 ./install.sh`.
 - **Regenerate `Brewfile`** with `brew bundle dump --file=Brewfile --force`;
-  hand-added GUI casks (ghostty, cursor) carry a comment - do not drop them.
+  hand-added GUI casks (ghostty) carry a comment - do not drop them.
 - **Don't confuse the two AGENTS.md files.** This one is repo/agent notes.
   `home/AGENTS.md` is symlinked to `~/.claude/CLAUDE.md` (global Claude
   instructions) - editing it changes agent behavior everywhere, not just here.
