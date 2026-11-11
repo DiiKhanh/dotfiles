@@ -3,3 +3,41 @@
 	UseHttpPath = true
 [init]
 	defaultBranch = main
+
+[status]
+	branch = true              # luôn hiện branch kể cả dạng ngắn
+	short = true               # mặc định dùng dạng ngắn
+	showStash = true           # hiện số stash đang có
+	showUntrackedFiles = all   # liệt kê từng file untracked
+	relativePaths = false      # đường dẫn tính từ gốc repo, giống trong ảnh bạn gửi
+
+[color "status"]
+	added = green bold         # đã stage
+	changed = yellow bold      # sửa nhưng chưa stage
+	untracked = magenta
+	branch = cyan bold
+	unmerged = red bold
+
+[diff]
+	algorithm = histogram      # diff chính xác hơn, ít nhiễu
+	colorMoved = zebra         # dòng bị di chuyển tô màu khác dòng thêm mới
+	mnemonicPrefix = true      # i/ w/ c/ thay cho a/ b/
+	renames = copies           # nhận diện cả file copy
+
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	new = green
+	old = red
+
+[column]
+	ui = auto                  # xếp cột khi danh sách dài
+
+[core]
+	pager = less -FRX          # không mở pager nếu output ngắn
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
