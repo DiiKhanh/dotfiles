@@ -10,6 +10,9 @@ script, and get the familiar setup back.
 | Zsh | `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh` | `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` is sourced directly from the repo) |
 | Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
 | Ghostty | `ghostty/` | `~/.config/ghostty` |
+| herdr | `herdr/config.toml`, `herdr/quota-status.sh` | `~/.config/herdr/config.toml`, `~/.config/herdr/quota-status.sh` |
+| lazygit | `lazygit/config.yml` | `~/Library/Application Support/lazygit/config.yml` |
+| yazi | `yazi/yazi.toml` | `~/.config/yazi/yazi.toml` |
 | Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
 | Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
 | OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |

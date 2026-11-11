@@ -1,0 +1,13 @@
+# lazygit configuration. Reference: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+os:
+  # `e` on a file opens it in micro ($EDITOR is unset on this machine).
+  editPreset: micro
+git:
+  # delta renders syntax-highlighted diffs; `|` cycles between the entries.
+  # Ghostty uses a fixed dark theme, so --dark is hardcoded rather than
+  # relying on background detection through herdr popups.
+  diffRenderers:
+    - name: delta
+      command: delta --dark --paging=never --line-numbers
+    - name: delta side-by-side
+      command: delta --dark --paging=never --line-numbers --side-by-side --width={{width}}

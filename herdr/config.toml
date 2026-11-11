@@ -1,0 +1,90 @@
+# herdr configuration. Full reference: `herdr --default-config`.
+# Validate with `herdr config check`, apply live with `herdr server reload-config`.
+
+onboarding = false
+
+# Matches the Ghostty theme (ghostty/theme/tokyonight-moon). herdr's built-in
+# "tokyo-night" is the darker Night variant, so the tokens below re-tint it to
+# the Moon palette.
+[theme]
+name = "tokyo-night"
+# Ghostty uses a fixed dark theme, so following macOS appearance would put a
+# light herdr UI inside a dark terminal.
+auto_switch = false
+
+[theme.custom]
+# "reset" keeps the terminal's default background so Ghostty's
+# background-opacity and blur still show through herdr.
+panel_bg = "reset"
+sidebar_bg = "reset"
+active_row_bg = "#2f334d"
+selection_bg = "#2d3f76"
+surface0 = "#2f334d"
+surface1 = "#3b4261"
+surface_dim = "#1e2030"
+overlay0 = "#545c7e"
+overlay1 = "#636da6"
+subtext0 = "#828bb8"
+text = "#c8d3f5"
+accent = "#86e1fc"
+blue = "#82aaff"
+mauve = "#c099ff"
+teal = "#4fd6be"
+green = "#c3e88d"
+yellow = "#ffc777"
+peach = "#ff966c"
+red = "#ff757f"
+
+[ui]
+agent_panel_sort = "spaces"
+status_indicators = "symbols"
+show_agent_labels_on_pane_borders = true
+window_title = "{workspace} · {tab}"
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "command", command = "~/.config/herdr/quota-status.sh", interval_seconds = 60, timeout_seconds = 20 },
+  { type = "datetime", format = "%H:%M" },
+]
+tab_bar_right_separator = "  "
+
+[ui.sidebar.spaces]
+row_gap = 1
+rows = [
+  ["state_icon", { token = "workspace", bold = true }],
+  [{ token = "branch", fg = "#c099ff" }, "git_status"],
+]
+
+[ui.sidebar.agents]
+rows = [
+  ["state_icon", { token = "workspace", bold = true }, { token = "tab", dim = true }],
+  [{ token = "agent", fg = "#82aaff" }, { token = "state_text", dim = true }],
+]
+
+[ui.sound]
+enabled = false
+
+# Popup commands run via `/bin/sh -lc` (no .zshrc), so nvm-installed tools need
+# nvm loaded first. $HERDR_ACTIVE_PANE_CWD is the focused pane's directory.
+[[keys.command]]
+key = "prefix+u"
+type = "popup"
+command = '. "$HOME/.nvm/nvm.sh" >/dev/null; exec quota-axi --tui --refresh 1m --provider claude,codex'
+description = "AI quota usage"
+width = "70%"
+height = "60%"
+
+# Full-screen temporary pane: diffs need the width, and it closes on exit.
+[[keys.command]]
+key = "prefix+alt+g"
+type = "pane"
+command = 'cd "$HERDR_ACTIVE_PANE_CWD" && exec lazygit'
+description = "lazygit"
+
+# File browser in a split to the right, so the agent pane stays visible.
+# --ratio is the share kept by the original pane, so 0.6 gives yazi 40%.
+# `exec` makes the split close when yazi quits.
+[[keys.command]]
+key = "prefix+alt+f"
+type = "shell"
+command = '''herdr="${HERDR_BIN_PATH:-herdr}"; pane=$("$herdr" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction right --ratio 0.6 --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && "$herdr" pane run "$pane" "exec yazi"'''
+description = "yazi file browser"

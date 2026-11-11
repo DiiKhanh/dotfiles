@@ -63,6 +63,18 @@ link "git/ignore"                 "$HOME/.config/git/ignore"
 echo "Ghostty:"
 link "ghostty"                    "$HOME/.config/ghostty"
 
+echo "herdr:"
+# Only config.toml is linked: ~/.config/herdr also holds sockets, logs and sessions.
+link "herdr/config.toml"          "$HOME/.config/herdr/config.toml"
+link "herdr/quota-status.sh"      "$HOME/.config/herdr/quota-status.sh"
+
+echo "lazygit:"
+# Only config.yml is linked: the directory also holds lazygit's session state.
+link "lazygit/config.yml"         "$HOME/Library/Application Support/lazygit/config.yml"
+
+echo "yazi:"
+link "yazi/yazi.toml"             "$HOME/.config/yazi/yazi.toml"
+
 echo "Claude Code:"
 link "claude/settings.json"       "$HOME/.claude/settings.json"
 link "claude/rules"               "$HOME/.claude/rules"

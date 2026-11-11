@@ -1,0 +1,15 @@
+# yazi configuration. Reference: https://yazi-rs.github.io/docs/configuration/yazi
+# Only overrides are listed; everything else uses yazi's built-in preset.
+
+[mgr]
+show_hidden = true
+# herdr opens yazi in a 40% split; drop the parent column so the file list
+# and preview get the width.
+ratio = [0, 2, 3]
+
+# $EDITOR is unset on this machine, so the default "edit" opener would fall
+# back to vi. Text files open in micro instead.
+[opener]
+edit = [
+  { run = "micro %s", block = true, desc = "micro", for = "unix" },
+]
