@@ -3,10 +3,11 @@
 ## Writing
 - In prose you write, use a plain dash "-" instead of the em dash "—". Preserve quoted text, string literals, fixtures, and externally sourced content exactly.
 - Keep chat tone out of artifacts: no direct address or conversational phrasing in commit messages, PR descriptions, code, or comments.
+- Diagrams in repo docs: prefer a text-based format that renders on the repo host and diffs cleanly in git (Mermaid by default), unless the repo already uses another.
+- Render any chart or diagram you produce and inspect the result before delivering it.
 
 ## Decision making
-- When making technical decisions, do not give much weight to development cost.
-  Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
+- When making technical decisions, do not give much weight to development cost. Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
 - For one-off or infrequent operational work, start with the simplest direct end-to-end path. Do not build wrappers, control planes, policy layers, custom verifiers, or automation unless the direct path exposes a concrete blocker or repeated need that justifies the added machinery.
 - Check existing evidence (docs, code, git history, prior reports) before starting a new investigation.
 - A current, explicit instruction from me that names the exact action and target counts as approval and overrides a standing rule within that exact scope. Never infer an override, broaden it, apply it by analogy, or treat a one-time approval as standing authority.
@@ -23,9 +24,8 @@
 ## Bug fixing and quality bar
 - When fixing a bug, first reproduce it at the level closest to how an end user experiences it (E2E for products, the public API for libraries). If that is not feasible, state why and reproduce at the nearest reliable layer before changing code.
 - When end-to-end testing a product, be picky about the UI you see and be obsessed with pixel perfection.
-  If something clearly looks off, even if it is not directly related to what you are doing, try to get it fixed along the way.
-- Apply that same high standard to engineering excellence: lint, test failures, and test flakiness.
-  If you see one, even if it is not caused by what you are working on right now, still get it fixed.
+- If something clearly looks off, even if it is not directly related to what you are doing, try to get it fixed along the way.
+- Apply that same high standard to engineering excellence: lint, test failures, and test flakiness. If you see one, even if it is not caused by what you are working on right now, still get it fixed.
 - These along-the-way fixes apply only when the task already involves changing code. In review, diagnosis, or read-only tasks, report them instead.
 - If an along-the-way fix would materially expand scope, risk, or review burden, report it and ask before implementing it.
 - Keep along-the-way fixes logically separate from the main change. When commits are authorized, put them in separate commits. List them in the final summary.
@@ -33,8 +33,7 @@
 
 ## Code
 - Follow the repo's own conventions first; the rules below are defaults.
-- Write commit messages following Conventional Commits (`<type>(<optional scope>): <description>`).
-  Add an agent co-author trailer only when the project's own rules require it; otherwise do not add one.
+- Write commit messages following Conventional Commits (`<type>(<optional scope>): <description>`). Add an agent co-author trailer only when the project's own rules require it; otherwise do not add one.
 - Never manually modify files marked as auto-generated; change the source and rerun the generator. Do not hand-edit CHANGELOG.md unless I ask or the repo's contributing docs require manual entries.
 - Use the project's own scripts (typecheck, test, lint) instead of invoking underlying tools directly. Consult a tool's current --help rather than relying on memorized flags.
 - Do not extract single-use helpers preemptively. Extract only when reused, when hiding a genuinely complex boundary, or when the name captures a real concept that makes the caller clearer.
@@ -42,6 +41,12 @@
 - Comment non-obvious constraints and surprising behavior, not obvious code.
 - Only catch errors you can actually handle; do not swallow or blanket-wrap them. Validate untrusted input at system boundaries using the project's established mechanism.
 - Tests: avoid mocks as much as possible, never patch globals unless there is no other option, test the real implementation, and do not duplicate production logic inside tests.
+- For an unfamiliar feature whose design is not established by the repository or authoritative documentation, research relevant open-source implementations before coding (GitHub). Compare approaches for fit, robustness, maintainability, and license compatibility; do not copy code blindly.
+- Before implementing, briefly summarize the viable approaches, their trade-offs, and the recommended choice. Ask for a decision only when the choice would materially affect scope, safety, external state, or the outcome
+
+## Browser
+- Default to `chrome-devtools-axi` (isolated browser) for dev, testing, debugging, perf.
+- Use Claude in Chrome only when the task needs my logged-in sessions or my open tabs, or when I name it.
 
 ## Communication
 - Report outcomes faithfully. If something failed, say so plainly with the evidence.
