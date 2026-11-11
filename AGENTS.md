@@ -38,5 +38,6 @@ sdkman, nvm) then calls `install.sh`.
   instructions) - editing it changes agent behavior everywhere, not just here.
 - **`zsh/fzf.zsh` is sourced directly from the repo path** by `.zshrc`, so it
   is intentionally not symlinked. Don't add a `link` line for it.
-- Follow the user's global git rule: commit only when explicitly asked, and do
-  not add agent co-author trailers.
+- Follow the user's global git rule: commit only when explicitly asked, using
+  Conventional Commits. This repo does not require agent co-author trailers, so
+  do not add them.
