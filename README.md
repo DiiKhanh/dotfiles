@@ -13,6 +13,7 @@ script, and get the familiar setup back.
 | Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
 | Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
 | OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
+| opencode | `home/AGENTS.md` | `~/.config/opencode/AGENTS.md` |
 | SSH | `ssh/config.example` | seeded to `~/.ssh/config` if absent (not symlinked) |
 | Homebrew | `Brewfile` | installed via `brew bundle` |
 
