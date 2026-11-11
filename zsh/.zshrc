@@ -133,16 +133,25 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias gs="git status -s"
+# alias gs="git status -s"
 alias ga="git add ."
 alias gcm="git commit -m"
 alias gf="git fetch"
 alias gp="git pull"
 alias gpush="git push origin"
-alias glog="git log --oneline --decorate --all --graph"
+alias glog="git log --oneline --decorate --graph HEAD"
+alias gloga="git log --oneline --decorate --graph --all"
+alias gd="git diff"
+alias gds="git diff --staged"
 
 # alias for common
 alias cls="clear"
+
+# Agent shells (Claude Code sets CLAUDECODE) get plain tools: the overrides
+# below change output and semantics, and unmatched globs pass through as-is.
+if [[ -n $CLAUDECODE ]]; then
+  setopt no_nomatch
+else
 
 # Easier navigation
 alias .="printf '\U000F17A9 ' && pwd"
@@ -168,6 +177,8 @@ command_exists eza && alias ls="eza --no-user --hyperlink --icons=auto --group-d
 # Display a detailed clickable directory tree with a Git status
 command_exists eza && alias lt="ls --tree --level=2 --long --header --git --git-ignore"
 
+fi
+
 # Enable fzf: https://github.com/junegunn/fzf
 if command_exists fzf; then
   source $HOME/dotfiles/zsh/fzf.zsh
@@ -189,3 +200,8 @@ export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # Added by Antigravity CLI installer
 export PATH="$HOME/.local/bin:$PATH"
+
+# Go tools installed via `go install` / `make tools` (grpcui, grpcurl, golangci-lint, ...)
+export PATH="$(go env GOPATH)/bin:$PATH"
+
+source ~/dotfiles/gst-function.zsh
