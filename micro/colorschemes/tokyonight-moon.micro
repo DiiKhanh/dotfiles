@@ -1,0 +1,70 @@
+# Tokyo Night Moon for micro, matching Ghostty (ghostty/theme/tokyonight-moon)
+# and herdr. Palette from folke/tokyonight.nvim (colors/moon.lua); syntax
+# roles follow tokyonight's Vim highlight groups.
+#
+# "default" sets no background so the terminal background (and Ghostty's
+# opacity and blur) shows through. Groups without an explicit background
+# inherit that.
+
+color-link default "#c8d3f5"
+
+# Syntax
+color-link comment "italic #636da6"
+color-link comment.bright "italic #828bb8"
+color-link constant "#ff966c"
+color-link constant.bool "#ff966c"
+color-link constant.number "#ff966c"
+color-link constant.specialChar "#c099ff"
+color-link constant.string "#c3e88d"
+color-link constant.string.url "underline #86e1fc"
+color-link identifier "#82aaff"
+color-link identifier.class "#82aaff"
+color-link identifier.macro "#86e1fc"
+color-link identifier.var "#4fd6be"
+color-link preproc "#86e1fc"
+color-link preproc.shebang "italic #636da6"
+color-link statement "#c099ff"
+color-link type "#65bcff"
+color-link type.keyword "#fca7ea"
+color-link special "#65bcff"
+color-link symbol "#89ddff"
+color-link symbol.brackets "#828bb8"
+color-link symbol.operator "#89ddff"
+color-link symbol.tag "#ff757f"
+color-link underlined "underline #82aaff"
+color-link error "bold #c53b53"
+color-link todo "bold #222436,#ffc777"
+color-link ignore "#545c7e"
+
+# Editor UI
+color-link selection ",#2d3f76"
+# micro paints cursor-line and color-column using the group's foreground as
+# the background, so these take a single color, not ",bg".
+color-link cursor-line "#2f334d"
+color-link color-column "#2f334d"
+color-link line-number "#3b4261"
+color-link current-line-number "bold #ff966c"
+color-link indent-char "#3b4261"
+color-link match-brace "bold #ff966c"
+color-link hlsearch "#c8d3f5,#3e68d7"
+color-link tab-error ",#c53b53"
+color-link trailingws ",#c53b53"
+color-link scrollbar "#545c7e"
+color-link divider "#3b4261"
+
+# Gutter and diff markers
+color-link gutter-info "#0db9d7"
+color-link gutter-warning "#ffc777"
+color-link gutter-error "#c53b53"
+color-link diff-added "#b8db87"
+color-link diff-modified "#7ca1f2"
+color-link diff-deleted "#e26a75"
+
+# Status line, tab bar and messages
+color-link statusline "#828bb8,#1e2030"
+color-link statusline.inactive "#545c7e,#1e2030"
+color-link statusline.suggestions "#c8d3f5,#1e2030"
+color-link tabbar "#828bb8,#1e2030"
+color-link tabbar.active "bold #1e2030,#82aaff"
+color-link message "#c8d3f5"
+color-link error-message "bold #ff757f"
