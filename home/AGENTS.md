@@ -40,7 +40,11 @@
 - Keep the primary flow easy to follow; prefer early returns and, where the language supports it, immutable bindings.
 - Comment non-obvious constraints and surprising behavior, not obvious code.
 - Only catch errors you can actually handle; do not swallow or blanket-wrap them. Validate untrusted input at system boundaries using the project's established mechanism.
-- Tests: avoid mocks as much as possible, never patch globals unless there is no other option, test the real implementation, and do not duplicate production logic inside tests.
+- Keep files focused and organized by feature/domain (roughly 200-400 lines, 800 max), avoid nesting deeper than 4 levels, and name constants instead of scattering magic values.
+- Tests: write them for new behavior and bug fixes, test first where practical; pick unit, integration, or E2E by risk and follow the project's coverage target. Avoid mocks as much as possible, never patch globals unless there is no other option, test the real implementation, and do not duplicate production logic inside tests. When a test fails, fix the implementation unless the test itself is wrong.
+- Secrets: never hardcode them; read from env or a secret manager and fail fast when a required one is missing. Error messages must not leak sensitive data. If a secret looks exposed, stop and report it so it can be rotated.
+- Code that handles untrusted input or exposes endpoints: apply the project's security checklist; without one, check injection, XSS, CSRF, authn/authz, and rate limiting.
+- Review your own diff right after writing it. A PR description covers the full branch diff (`git diff <base>...HEAD`), not just the last commit, and includes a test plan.
 - For an unfamiliar feature whose design is not established by the repository or authoritative documentation, research relevant open-source implementations before coding (GitHub). Compare approaches for fit, robustness, maintainability, and license compatibility; do not copy code blindly.
 - Before implementing, briefly summarize the viable approaches, their trade-offs, and the recommended choice. Ask for a decision only when the choice would materially affect scope, safety, external state, or the outcome
 
