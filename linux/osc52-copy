@@ -1,0 +1,4 @@
+#!/bin/sh
+# Copy stdin to the local clipboard over SSH via the OSC 52 escape sequence,
+# which Ghostty honours. Stands in for pbcopy on headless Linux hosts.
+printf '\033]52;c;%s\a' "$(base64 | tr -d '\n')" > /dev/tty

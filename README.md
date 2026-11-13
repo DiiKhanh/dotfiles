@@ -1,62 +1,68 @@
-# dotfiles
+# dotfiles (linux branch)
 
-Personal macOS development environment. Clone this on a new machine, run one
-script, and get the familiar setup back.
+Ubuntu variant of the macOS dotfiles on `main`, for headless hosts such as a
+VPS used as a herdr SSH machine. Tested on Ubuntu 20.04 (x86_64 and aarch64).
+Claude Code and Ghostty are not set up here; `claude/`, `ghostty/`,
+`bootstrap.sh` and `Brewfile` are macOS-only leftovers from `main`.
 
 ## What is managed
 
 | Tool | Repo path | Symlinked to |
 |------|-----------|--------------|
 | Zsh | `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh` | `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` is sourced directly from the repo) |
-| Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
-| Ghostty | `ghostty/` | `~/.config/ghostty` |
-| herdr | `herdr/config.toml`, `herdr/quota-status.sh` | `~/.config/herdr/config.toml`, `~/.config/herdr/quota-status.sh` |
-| lazygit | `lazygit/config.yml` | `~/Library/Application Support/lazygit/config.yml` |
-| yazi | `yazi/yazi.toml` | `~/.config/yazi/yazi.toml` |
-| Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
+| Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` (identity lives in `~/.gitconfig.local`) |
+| herdr | `herdr/config.toml` | `~/.config/herdr/config.toml` |
+| lazygit | `lazygit/config.yml` | `~/.config/lazygit/config.yml` |
+| yazi | `yazi/yazi.toml`, `yazi/theme.toml`, `yazi/flavors/` | `~/.config/yazi/yazi.toml`, `~/.config/yazi/theme.toml`, `~/.config/yazi/flavors` |
+| micro | `micro/settings.json`, `micro/colorschemes/`, `micro/syntax/` | `~/.config/micro/settings.json`, `~/.config/micro/colorschemes`, `~/.config/micro/syntax` |
 | Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
-| OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
-| opencode | `home/AGENTS.md` | `~/.config/opencode/AGENTS.md` |
 | SSH | `ssh/config.example` | seeded to `~/.ssh/config` if absent (not symlinked) |
-| Homebrew | `Brewfile` | installed via `brew bundle` |
+| CLI tools | `linux/tools.sh` | fzf, eza, fd, bat, delta, lazygit, yazi, micro, jq, gh in `~/.local/bin` |
+| Oh My Zsh | `linux/tools.sh` | `~/.oh-my-zsh` + zsh-autosuggestions, zsh-syntax-highlighting |
+| Ghostty terminfo | `linux/xterm-ghostty.terminfo` | compiled into `~/.terminfo` |
 
-## New machine setup
+## Setup
+
+Needs `git`, `curl`, `zsh` and `python3` (or `unzip`); no sudo.
 
 ```sh
-git clone git@github.com:DiiKhanh/dotfiles.git ~/dotfiles
+git clone -b linux https://github.com/DiiKhanh/dotfiles.git ~/dotfiles
 cd ~/dotfiles
-./bootstrap.sh
+./install.sh
+exec zsh
 ```
 
-`bootstrap.sh` installs Homebrew, the `Brewfile` packages (CLI + casks like
-Raycast/Ghostty), Oh My Zsh + plugins, SDKMAN, nvm + Node LTS, then runs
-`install.sh` to symlink every config.
-
-Already have the tools and only want the symlinks:
+The clone must live at `~/dotfiles`: `.zshrc` sources files from that path.
 
 ```sh
-./install.sh            # create/repair symlinks (backs up anything in the way)
-DRY_RUN=1 ./install.sh  # preview without changing anything
+DRY_RUN=1 ./install.sh       # preview without changing anything
+SKIP_TOOLS=1 ./install.sh    # symlinks only
+UPDATE_TOOLS=1 ./install.sh  # reinstall tools at the pinned versions
 ```
+
+## Why it differs from main
+
+- **Tools come from pinned upstream releases**, verified by SHA256, because
+  Ubuntu 20.04's apt has fzf 0.20 (too old for `zsh/fzf.zsh`) and no eza,
+  delta, lazygit or yazi. Bump a tool by editing its row in `linux/tools.sh`.
+- **herdr panes are non-login shells on Linux**, so `.zshrc` itself puts
+  `~/.local/bin` on `PATH` and loads nvm; `.zprofile` does the same for login
+  shells such as `zsh -lc` used by Codex.
+- **herdr on a saved SSH machine** takes theme and keybindings from the client
+  (the Mac), but custom commands (`prefix+alt+g` lazygit, `prefix+alt+f` yazi)
+  from this host's `herdr/config.toml`. The quota popup and tab-bar entry are
+  dropped: they need quota-axi.
+- **Clipboard over SSH** uses OSC 52: fzf `Ctrl-Y` pipes into
+  `linux/osc52-copy`, micro uses `"clipboard": "terminal"`.
+- **Git** uses `gh auth git-credential` from `PATH` (run `gh auth login` once)
+  and no AWS CodeCommit helper.
 
 ## What is deliberately NOT stored
 
-- **SSH keys and the real `~/.ssh/config`.** Only `ssh/config.example` (a
-  redacted template with placeholder hosts/users) is tracked. Copy keys in
-  manually and `chmod 600`; edit real hosts into `~/.ssh/config` after seeding.
-- Claude Code runtime/secrets: `settings.local.json`, `history.jsonl`,
-  `sessions/`, `projects/`, caches, `.zsh_history`, `stats-cache.json`.
-- Anything installed by the bootstrap: `~/.oh-my-zsh`, `~/.sdkman`, `~/.nvm`.
-
-## Notes / manual steps
-
-- **Fonts**: `ghostty/font/*` snippets reference many Nerd Fonts. Install the
-  ones you use separately, or Ghostty falls back to a default.
-- **Claude statusline**: `claude/settings.json` hardcodes a Node path
-  (`~/.nvm/versions/node/<version>/bin/node`). If the Node version differs on a
-  new machine, update it there.
-- **Paths use `$HOME`**: shell configs and the Claude statusline reference
-  `$HOME` (not a hardcoded username), so they are portable across machines.
+- SSH keys and the real `~/.ssh/config`. Prefer `ForwardAgent` from the Mac over
+  copying keys to the host.
+- Git identity: `~/.gitconfig.local`, filled from an existing `~/.gitconfig` on
+  first install.
 
 ## Updating configs
 

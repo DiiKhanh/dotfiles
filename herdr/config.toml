@@ -42,7 +42,6 @@ show_agent_labels_on_pane_borders = true
 window_title = "{workspace} · {tab}"
 tab_bar_right = [
   { type = "zoom" },
-  { type = "command", command = "~/.config/herdr/quota-status.sh", interval_seconds = 60, timeout_seconds = 20 },
   { type = "datetime", format = "%H:%M" },
 ]
 tab_bar_right_separator = "  "
@@ -63,21 +62,16 @@ rows = [
 [ui.sound]
 enabled = false
 
-# Popup commands run via `/bin/sh -lc` (no .zshrc), so nvm-installed tools need
-# nvm loaded first. $HERDR_ACTIVE_PANE_CWD is the focused pane's directory.
-[[keys.command]]
-key = "prefix+u"
-type = "popup"
-command = '. "$HOME/.nvm/nvm.sh" >/dev/null; exec quota-axi --tui --refresh 1m --provider claude,codex'
-description = "AI quota usage"
-width = "70%"
-height = "60%"
+# On a saved SSH machine these commands are the remote server's: herdr does not
+# send the client's custom commands. They run via `/bin/sh -lc`, which reads
+# neither .zshrc nor .zprofile, so ~/.local/bin (linux/tools.sh) is added here.
+# $HERDR_ACTIVE_PANE_CWD is the focused pane's directory.
 
 # Full-screen temporary pane: diffs need the width, and it closes on exit.
 [[keys.command]]
 key = "prefix+alt+g"
 type = "pane"
-command = 'cd "$HERDR_ACTIVE_PANE_CWD" && exec lazygit'
+command = 'PATH="$HOME/.local/bin:$PATH"; cd "$HERDR_ACTIVE_PANE_CWD" && exec lazygit'
 description = "lazygit"
 
 # File browser in a split to the right, so the agent pane stays visible.
@@ -86,5 +80,5 @@ description = "lazygit"
 [[keys.command]]
 key = "prefix+alt+f"
 type = "shell"
-command = '''herdr="${HERDR_BIN_PATH:-herdr}"; pane=$("$herdr" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction right --ratio 0.6 --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && "$herdr" pane run "$pane" "exec yazi"'''
+command = '''PATH="$HOME/.local/bin:$PATH"; herdr="${HERDR_BIN_PATH:-herdr}"; pane=$("$herdr" pane split --pane "$HERDR_ACTIVE_PANE_ID" --direction right --ratio 0.6 --cwd "$HERDR_ACTIVE_PANE_CWD" --focus | jq -r .result.pane.pane_id) && "$herdr" pane run "$pane" "exec yazi"'''
 description = "yazi file browser"

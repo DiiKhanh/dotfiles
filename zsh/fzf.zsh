@@ -1,5 +1,7 @@
 #!/bin/zsh
 # FZF Configuration
+# Ctrl-Y copies through OSC 52 (linux/osc52-copy) since a headless host has no
+# pbcopy; Ctrl-O opens the selection in micro instead of VS Code.
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
 
@@ -11,7 +13,7 @@ export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {}'"
 export FZF_CTRL_R_OPTS="
   --preview 'echo {}' --preview-window down:3:hidden:wrap
   --bind 'ctrl-/:toggle-preview'
-  --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'
+  --bind 'ctrl-y:execute-silent(echo -n {2..} | $HOME/dotfiles/linux/osc52-copy)+abort'
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
@@ -20,7 +22,7 @@ export FZF_COMPLETION_OPTS='--border --info=inline'
 
 FZF_COLORS="fg:-1,fg+:#1a1625,bg:-1,bg+:#bea3d9,hl:#ca5a83,hl+:#97576f,info:#7254a6,marker:#ceb250,prompt:#7254a6,spinner:#bea3d9,pointer:#bea3d9,header:#e9d6fa,border:#644e88,label:#bea3d9,query:#e9d6fa,disabled:#7254a6"
 
-export FZF_DEFAULT_OPTS="--height 60% --border rounded --layout reverse --color '$FZF_COLORS' --prompt '▶ ' --pointer ▪︎ --marker '✔ ' --bind='ctrl-o:execute(code {})+abort' --bind 'ctrl-/:change-preview-window(hidden|)' --preview-window='border-rounded' --info right"
+export FZF_DEFAULT_OPTS="--height 60% --border rounded --layout reverse --color '$FZF_COLORS' --prompt '▶ ' --pointer ▪︎ --marker '✔ ' --bind='ctrl-o:execute(micro {})+abort' --bind 'ctrl-/:change-preview-window(hidden|)' --preview-window='border-rounded' --info right"
 
 _fzf_compgen_path() {
   fd --hidden --exclude ".git" . "$1"

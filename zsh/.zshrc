@@ -2,6 +2,11 @@ command_exists() {
   command -v "$@" &> /dev/null
 }
 
+# CLI tools from linux/tools.sh live here. Set before the command_exists checks
+# below: herdr starts panes as non-login shells, which skip .zprofile.
+typeset -U path
+path=("$HOME/.local/bin" $path)
+
 # Customize LS colors
 # Used by: ls, fd
 LS_COLORS=""
@@ -112,12 +117,10 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+# Preferred editor for tools that read $EDITOR/$VISUAL (herdr scrollback,
+# yazi's default opener).
+export EDITOR='micro'
+export VISUAL='micro'
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -187,21 +190,17 @@ fi
 # Preview and open files in the current dir
 command_exists fzf && command_exists bat && alias preview="fzf --preview 'bat --style=numbers --color=always {}'"
 
-# Added by Antigravity
-export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
+# Go tools installed via `go install`, when Go is present.
+command_exists go && export PATH="$(go env GOPATH)/bin:$PATH"
+
+source $HOME/dotfiles/gst-function.zsh
+
+# Repeated from .zprofile: herdr panes are non-login shells, and Codex installed
+# through nvm's npm must be on PATH there too.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-# Added by Antigravity IDE
-export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
-
-
-# Added by Antigravity CLI installer
-export PATH="$HOME/.local/bin:$PATH"
-
-# Go tools installed via `go install` / `make tools` (grpcui, grpcurl, golangci-lint, ...)
-export PATH="$(go env GOPATH)/bin:$PATH"
-
-source ~/dotfiles/gst-function.zsh

@@ -1,6 +1,7 @@
-[credential]
-	helper = !aws codecommit credential-helper $@
-	UseHttpPath = true
+# Machine-specific identity (user.name/email). install.sh moves an existing
+# ~/.gitconfig identity here before linking this file.
+[include]
+	path = ~/.gitconfig.local
 [init]
 	defaultBranch = main
 
@@ -35,9 +36,10 @@
 
 [core]
 	pager = less -FRX          # không mở pager nếu output ngắn
+	editor = micro             # commit message, rebase -i, lazygit "C"
 [credential "https://github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !gh auth git-credential

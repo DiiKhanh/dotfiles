@@ -1,6 +1,6 @@
 # lazygit configuration. Reference: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
 os:
-  # `e` on a file opens it in micro ($EDITOR is unset on this machine).
+  # `e` on a file opens it in micro.
   editPreset: micro
 git:
   # delta renders syntax-highlighted diffs; `|` cycles between the entries.
