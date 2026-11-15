@@ -54,7 +54,8 @@ echo "Zsh:"
 link "zsh/.zshrc"                 "$HOME/.zshrc"
 link "zsh/.zprofile"              "$HOME/.zprofile"
 link "zsh/.zshrc.pre-oh-my-zsh"   "$HOME/.zshrc.pre-oh-my-zsh"
-# Note: fzf.zsh is sourced directly from this repo by .zshrc, so it needs no link.
+# Note: fzf.zsh and codex-prune.zsh are sourced directly from this repo by .zshrc,
+# so they need no link.
 
 echo "Git:"
 link "git/.gitconfig"             "$HOME/.gitconfig"
@@ -74,6 +75,14 @@ link "lazygit/config.yml"         "$HOME/Library/Application Support/lazygit/con
 
 echo "yazi:"
 link "yazi/yazi.toml"             "$HOME/.config/yazi/yazi.toml"
+link "yazi/theme.toml"            "$HOME/.config/yazi/theme.toml"
+link "yazi/flavors"               "$HOME/.config/yazi/flavors"
+
+echo "micro:"
+# Only these are linked: ~/.config/micro also holds buffer history and backups.
+link "micro/settings.json"        "$HOME/.config/micro/settings.json"
+link "micro/colorschemes"         "$HOME/.config/micro/colorschemes"
+link "micro/syntax"               "$HOME/.config/micro/syntax"
 
 echo "Claude Code:"
 link "claude/settings.json"       "$HOME/.claude/settings.json"

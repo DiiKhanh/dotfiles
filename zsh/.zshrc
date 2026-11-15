@@ -112,12 +112,10 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+# Preferred editor for tools that read $EDITOR/$VISUAL (herdr scrollback,
+# Claude Code ctrl+g, yazi's default opener).
+export EDITOR='micro'
+export VISUAL='micro'
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -183,6 +181,9 @@ fi
 if command_exists fzf; then
   source $HOME/dotfiles/zsh/fzf.zsh
 fi
+
+# codex-prune: delete Codex sessions idle for more than N days (dry run unless --yes)
+command_exists codex && source $HOME/dotfiles/zsh/codex-prune.zsh
 
 # Preview and open files in the current dir
 command_exists fzf && command_exists bat && alias preview="fzf --preview 'bat --style=numbers --color=always {}'"

@@ -1,0 +1,16 @@
+# yazi theme. Reference: https://yazi-rs.github.io/docs/configuration/theme
+
+# Same flavor in both modes: this Ghostty build answers the DSR 996
+# color-scheme query with "light" even though the background is dark (herdr
+# forwards that answer), so yazi would otherwise run in light mode. The flavor
+# also pins yazi's dark icon table for the same reason.
+[flavor]
+dark = "tokyonight-moon"
+light = "tokyonight-moon"
+
+# The devicons color for *.sh (#4d5a5e) is too dim on a dark background; use
+# the bash/zsh green instead.
+[icon]
+prepend_exts = [
+	{ name = "sh", text = "", fg = "#89e051" },
+]

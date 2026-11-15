@@ -7,12 +7,13 @@ script, and get the familiar setup back.
 
 | Tool | Repo path | Symlinked to |
 |------|-----------|--------------|
-| Zsh | `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh` | `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` is sourced directly from the repo) |
+| Zsh | `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh`, `zsh/codex-prune.zsh` | `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` and `codex-prune.zsh` are sourced directly from the repo) |
 | Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
 | Ghostty | `ghostty/` | `~/.config/ghostty` |
 | herdr | `herdr/config.toml`, `herdr/quota-status.sh` | `~/.config/herdr/config.toml`, `~/.config/herdr/quota-status.sh` |
 | lazygit | `lazygit/config.yml` | `~/Library/Application Support/lazygit/config.yml` |
-| yazi | `yazi/yazi.toml` | `~/.config/yazi/yazi.toml` |
+| yazi | `yazi/yazi.toml`, `yazi/theme.toml`, `yazi/flavors/` | `~/.config/yazi/yazi.toml`, `~/.config/yazi/theme.toml`, `~/.config/yazi/flavors` |
+| micro | `micro/settings.json`, `micro/colorschemes/`, `micro/syntax/` | `~/.config/micro/settings.json`, `~/.config/micro/colorschemes`, `~/.config/micro/syntax` |
 | Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
 | Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
 | OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
@@ -52,11 +53,15 @@ DRY_RUN=1 ./install.sh  # preview without changing anything
 
 - **Fonts**: `ghostty/font/*` snippets reference many Nerd Fonts. Install the
   ones you use separately, or Ghostty falls back to a default.
-- **Claude statusline**: `claude/settings.json` hardcodes a Node path
-  (`~/.nvm/versions/node/<version>/bin/node`). If the Node version differs on a
-  new machine, update it there.
-- **Paths use `$HOME`**: shell configs and the Claude statusline reference
-  `$HOME` (not a hardcoded username), so they are portable across machines.
+- **Claude statusline**: `claude/settings.json` runs claude-hud with an absolute
+  bun path under `~/.nvm/versions/node/<version>/` (username included). Update it
+  on a new machine or after a Node upgrade.
+- **Claude settings are rewritten by tools**: Claude Code and Orca edit
+  `~/.claude/settings.json` (Orca installs its agent hooks there) and can replace
+  the symlink with a real file. Check `ls -l ~/.claude/settings.json`, copy any
+  real file back into the repo, then re-link with `./install.sh`.
+- **Paths use `$HOME`**: shell configs reference `$HOME` (not a hardcoded
+  username), so they are portable across machines.
 
 ## Updating configs
 
