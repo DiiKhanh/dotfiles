@@ -7,8 +7,6 @@ paths:
 ---
 # TypeScript/JavaScript Coding Style
 
-> This file extends [common/coding-style.md](../common/coding-style.md) with TypeScript/JavaScript specific content.
-
 ## Immutability
 
 Use spread operator for immutable updates:
@@ -62,4 +60,8 @@ const validated = schema.parse(input)
 
 - No `console.log` statements in production code
 - Use proper logging libraries instead
-- See hooks for automatic detection
+
+## Formatting and Type Checks
+
+- Run the project's formatter (e.g. Prettier) on edited files
+- Run `tsc` (or the project's type-check script) after editing `.ts`/`.tsx` files

@@ -7,8 +7,6 @@ paths:
 ---
 # TypeScript/JavaScript Security
 
-> This file extends [common/security.md](../common/security.md) with TypeScript/JavaScript specific content.
-
 ## Secret Management
 
 ```typescript
@@ -23,6 +21,6 @@ if (!apiKey) {
 }
 ```
 
-## Agent Support
+## Security Review
 
-- Use **security-reviewer** skill for comprehensive security audits
+- Use `/security-review` for a review of pending changes
