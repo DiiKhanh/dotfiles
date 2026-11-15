@@ -68,9 +68,14 @@ keybind = super+shift+down=jump_to_prompt:1
 config-file = font/name-mono-casual
 config-file = leading/default
 config-file = theme/tokyonight-moon
-config-file = opacity/80%
+config-file = opacity/100%
 config-file = shader/none
 config-file = thicken/on
 config-file = oldstyle/on
+
+background-image = ~/.config/ghostty/wallpapers/neutral-gradient.png
+background-image-opacity = 0.15
+background-image-fit = cover
+background-image-position = center
 
 # vim: ft=config
