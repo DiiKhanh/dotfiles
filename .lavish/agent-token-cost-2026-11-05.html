@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="vi" data-theme="luxury">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Giảm chi phí điều phối agent - Codex & Claude Code</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--color-base-100, #09090b); color: var(--color-base-content, #e5e5e5); font-family: system-ui, sans-serif; line-height: 1.65; }
+    main { max-width: 1240px; margin: auto; padding: 36px 24px 80px; }
+    section { scroll-margin-top: 28px; }
+    h1 { max-width: 980px; line-height: 1.12; letter-spacing: -.035em; }
+    h2 { line-height: 1.25; letter-spacing: -.02em; }
+    a { text-underline-offset: .2em; }
+    p, h1, h2, h3, li, td, th, code { overflow-wrap: anywhere; }
+    .grid > *, .flex > * { min-width: 0; }
+    .eyebrow { font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; }
+    .muted { opacity: .72; }
+    .table { table-layout: fixed; width: 100%; }
+    .table td, .table th { white-space: normal; vertical-align: top; padding: 20px 16px; }
+    .table th { font-size: .78rem; }
+    .table td { font-size: .91rem; }
+    .source-title { display: block; font-weight: 650; line-height: 1.45; margin-bottom: 8px; }
+    .source-note { margin: 9px 0 0; font-size: .8rem; opacity: .72; }
+    .badge { height: auto; min-height: 1.5rem; white-space: normal; }
+    .evidence { border-left: 3px solid var(--color-primary); padding-left: 18px; }
+    .finding { border-top: 1px solid var(--color-base-300); padding: 20px 0; }
+    .finding:first-of-type { border-top: 0; }
+    .finding code { font-size: .85rem; }
+    details > summary { cursor: pointer; }
+    [hidden] { display: none !important; }
+    @media (max-width: 700px) {
+      main { padding: 24px 16px 56px; }
+      .sources-wrap { overflow-x: auto; }
+      .table { min-width: 760px; }
+      .table td, .table th { padding: 14px 12px; }
+    }
+    @media print {
+      body { background: white; color: black; }
+      .filters, nav { display: none !important; }
+      .card { break-inside: avoid; }
+      .sources-wrap { overflow: visible; }
+      .table { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header class="pb-10 border-b border-base-300">
+    <div class="flex flex-wrap gap-3 items-center mb-7">
+      <span class="badge badge-primary badge-outline">Research brief</span>
+      <span class="text-sm muted">01/10/2026 - 05/11/2026 · Đối chiếu ngày đăng</span>
+    </div>
+    <p class="eyebrow text-primary mb-3">Codex CLI · Claude Code · Agent orchestration</p>
+    <h1 class="text-4xl md:text-6xl font-semibold mb-6">Giảm những vòng xử lý thừa.<br>Giữ context vừa đủ.</h1>
+    <p class="text-lg md:text-xl max-w-3xl muted">Ưu tiên một agent chính, giao việc độc lập cho worker có model và công cụ phù hợp, rồi đo chi phí trên công việc đạt yêu cầu. Không có tỷ lệ tiết kiệm chung cho mọi repo.</p>
+    <nav class="flex flex-wrap gap-3 mt-7" aria-label="Mục lục">
+      <a class="btn btn-primary btn-sm" href="#sources">10 bài đã chọn</a>
+      <a class="btn btn-outline btn-sm" href="#apply">Đối chiếu dotfiles</a>
+      <a class="btn btn-ghost btn-sm" href="#limits">Giới hạn bằng chứng</a>
+    </nav>
+  </header>
+
+  <section class="py-10 grid md:grid-cols-3 gap-5" aria-label="Ba kết luận chính">
+    <article class="card bg-base-200 card-border">
+      <div class="card-body">
+        <p class="eyebrow text-primary">01 · Cấu trúc</p>
+        <h2 class="text-xl font-semibold">Một vòng xử lý trước</h2>
+        <p>Những bước phụ thuộc cùng dữ liệu nên ở chung context. Giữ subagent cho đọc dữ liệu lớn, việc độc lập hoặc kiểm chứng riêng.</p>
+        <a class="link text-sm" href="https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop">Anthropic · 22/10</a>
+      </div>
+    </article>
+    <article class="card bg-base-200 card-border">
+      <div class="card-body">
+        <p class="eyebrow text-primary">02 · Phân công</p>
+        <h2 class="text-xl font-semibold">Chọn model theo việc</h2>
+        <p>Worker tìm kiếm và trích xuất có thể dùng model nhỏ. Kiểm tra model thực sự chạy; tên agent và cấu hình mong muốn chưa đủ.</p>
+        <a class="link text-sm" href="https://everpod.ai/guides/claude-code-subagents">Everpod · 09/10</a>
+      </div>
+    </article>
+    <article class="card bg-base-200 card-border">
+      <div class="card-body">
+        <p class="eyebrow text-primary">03 · Đo lường</p>
+        <h2 class="text-xl font-semibold">Token và tiền khác nhau</h2>
+        <p>Trong log của FinOps LLM, cache read chiếm 93% input-side tokens nhưng chỉ 28% giá trị theo giá API. Cần tách cache read/write và output.</p>
+        <a class="link text-sm" href="https://finopsllm.com/research/claude-code-october-8-billion-tokens-list-price">FinOps LLM · 03/11</a>
+      </div>
+    </article>
+  </section>
+
+  <section id="sources" class="pb-10">
+    <div class="flex flex-wrap justify-between items-end gap-5 mb-5">
+      <div>
+        <p class="eyebrow text-primary mb-2">Thư mục nguồn</p>
+        <h2 class="text-3xl font-semibold">10 bài trong khoảng yêu cầu</h2>
+        <p class="muted mt-2">Ngày bên dưới là ngày đăng gốc; ngày cập nhật được ghi riêng.</p>
+      </div>
+      <div class="filters flex gap-3 flex-wrap">
+        <label class="text-sm">Nền tảng
+          <select id="platform" class="select select-sm block mt-1" aria-label="Lọc nền tảng">
+            <option value="all">Tất cả</option><option value="codex">Có Codex</option><option value="claude">Có Claude Code</option>
+          </select>
+        </label>
+        <label class="text-sm">Loại nguồn
+          <select id="kind" class="select select-sm block mt-1" aria-label="Lọc loại nguồn">
+            <option value="all">Tất cả</option><option value="official">Chính thức</option><option value="measured">Tự đo / thử nghiệm</option><option value="tutorial">Hướng dẫn</option>
+          </select>
+        </label>
+      </div>
+    </div>
+    <p id="count" class="text-sm muted mb-3" aria-live="polite">Hiển thị 10 / 10 bài</p>
+    <div class="sources-wrap rounded-box border border-base-300">
+      <table class="table table-zebra">
+        <colgroup><col style="width:12%"><col style="width:31%"><col style="width:35%"><col style="width:22%"></colgroup>
+        <thead><tr><th>Ngày đăng</th><th>Bài / tác giả</th><th>Điều đáng lấy</th><th>Giới hạn</th></tr></thead>
+        <tbody>
+          <tr data-platform="codex claude" data-kind="tutorial">
+            <td><time datetime="2026-10-02">02/10/2026</time></td>
+            <td><a class="source-title link" href="https://omegaplusapi.com/blog/reduce-cli-agent-token-usage-2026">How to Cut CLI Agent Token Usage by 20-30%</a><span class="badge badge-outline">Codex + Claude</span><p class="source-note">Omega Plus Media Team · Hướng dẫn</p></td>
+            <td>Đo baseline, thu hẹp tìm kiếm và output; giữ prompt prefix ổn định trước khi thử công cụ nén.</td>
+            <td>20-30% là mục tiêu thử nghiệm, không phải mức tiết kiệm đã được chứng minh. Có quảng bá sản phẩm.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="measured">
+            <td><time datetime="2026-10-08">08/10/2026</time></td>
+            <td><a class="source-title link" href="https://harnsy.dev/blog/claude-code-token-cost-after-changes">What three windows of our agents’ sessions taught us about handover points and token cost</a><span class="badge badge-outline">Claude Code</span><p class="source-note">Pavel Buchnev · harnsy</p></td>
+            <td>Chi phí mỗi bước agent chính: $0.096 → $0.075 → $0.101 khi đo lại. Context lớn có thể làm mất phần tiết kiệm ban đầu.</td>
+            <td>Một đội; nhiều thay đổi cùng lúc; không đo chất lượng bàn giao. Giá API quy đổi.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="measured">
+            <td><time datetime="2026-10-09">09/10/2026</time></td>
+            <td><a class="source-title link" href="https://www.ovidius.ai/blog/claude-code-subagents-haiku-vs-sonnet-vs-opus-benchmarked">Claude Code Subagents: Haiku vs Sonnet vs Opus, Benchmarked</a><span class="badge badge-outline">Claude Code</span><p class="source-note">Maciej Kaczor · Ovidius AI</p></td>
+            <td>458 lượt chấm; 14/18 định nghĩa agent chuyển sang Haiku 5.5. Giới hạn tool cũng giảm lượng token trong thử nghiệm.</td>
+            <td>Nhiều tác vụ nghiệp vụ, không chỉ code. Bộ task riêng của đơn vị tư vấn.</td>
+          </tr>
+          <tr data-platform="codex claude" data-kind="measured">
+            <td><time datetime="2026-10-09">09/10/2026</time><p class="source-note">Cập nhật 13/10</p></td>
+            <td><a class="source-title link" href="https://everpod.ai/guides/claude-code-subagents">Claude Code subagents: make one, what it costs, and Codex's</a><span class="badge badge-outline">Codex + Claude</span><p class="source-note">The Everpod team</p></td>
+            <td>Cùng một câu tìm kiếm: làm trực tiếp $0.29; Explore trên Opus $0.81; worker Haiku $0.22. Bài cũng thử context kế thừa của Codex.</td>
+            <td>Mỗi cách chạy một lần; có khác biệt quyền tool. Lỗi custom agent Codex gắn với 0.160.0.</td>
+          </tr>
+          <tr data-platform="codex claude" data-kind="measured">
+            <td><time datetime="2026-10-13">13/10/2026</time><p class="source-note">Cập nhật 28/10</p></td>
+            <td><a class="source-title link" href="https://www.tryfridaywork.com/benchmarks/handoff">Hand-off benchmark: Claude Code to Codex, measured</a><span class="badge badge-outline">Codex + Claude</span><p class="source-note">Arun Dass · Friday</p></td>
+            <td>14 task: bàn giao dùng ít hơn 21% token theo trung vị so với bắt đầu lại. Dán đầy đủ lời giải trước cũng cho kết quả tương đương.</td>
+            <td>Đo trên hosted Friday; không chứng minh cần cài thêm công cụ hay thuê cả hai agent cho mọi task.</td>
+          </tr>
+          <tr data-platform="codex" data-kind="official">
+            <td><time datetime="2026-10-14">14/10/2026</time></td>
+            <td><a class="source-title link" href="https://developers.openai.com/blog/maintaining-software-with-the-gpt-6-family">Maintaining software with the GPT-6 family</a><span class="badge badge-primary badge-outline">Codex · Chính thức</span><p class="source-note">OpenAI Developers</p></td>
+            <td>Sol 6.1 Ultra: 131 findings, $15.12; Astra Ultra: 142, $109.06. Chi phí đã gồm research subagents và các lượt tự tiếp tục.</td>
+            <td>Một workload audit nội bộ. Ít findings hơn; không chứng minh tiết kiệm tương tự cho mọi tác vụ.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="measured">
+            <td><time datetime="2026-10-19">19/10/2026</time><p class="source-note">Cập nhật 22/10</p></td>
+            <td><a class="source-title link" href="https://madsalt.tech/blog/multi-agent-orchestration-what-broke/">Multi-agent orchestration: what broke in 3,315 agent runs</a><span class="badge badge-outline">Claude Code</span><p class="source-note">Denys Zaichenko · madsalt</p></td>
+            <td>67.7% lượt khởi chạy là từng agent một. Ghi nhận lỗi ghi đè file, context cũ và retry do rule mâu thuẫn.</td>
+            <td>Nhật ký một người; không có đối chứng chứng minh orchestration tiết kiệm hơn một agent.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="official">
+            <td><time datetime="2026-10-22">22/10/2026</time></td>
+            <td><a class="source-title link" href="https://claude.com/resources/articles/building-agents-when-to-fold-subagents-into-your-main-agent-loop">Building agents: When to fold subagents into your main agent loop</a><span class="badge badge-primary badge-outline">Anthropic · Chính thức</span><p class="source-note">Hướng dẫn kiến trúc agent</p></td>
+            <td>Gộp specialist phụ thuộc cùng context; dùng skill và tool tải theo nhu cầu. Giữ subagent khi có lý do đo được.</td>
+            <td>Nói về agent doanh nghiệp nói chung. Giảm hơn 80% system prompt không có nghĩa giảm 80% tổng token.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="measured">
+            <td><time datetime="2026-10-30">30/10/2026</time></td>
+            <td><a class="source-title link" href="https://www.socialvik.com/blog/claude-code-agent-summary-background-agent-cost">Claude Code agent_summary: 19% to 68% of Our Agent Tokens</a><span class="badge badge-outline">Claude Code</span><p class="source-note">Sharath Menon M · SocialVik</p></td>
+            <td>Cần tính cả lời gọi tạo trạng thái cho background agent. Overhead có thể tăng theo số worker và độ dài context.</td>
+            <td>19-68% là replay giả lập trên 8 transcript, không phải hóa đơn thực đo. Không có setting tắt được hỗ trợ theo bài.</td>
+          </tr>
+          <tr data-platform="claude" data-kind="measured">
+            <td><time datetime="2026-11-03">03/11/2026</time></td>
+            <td><a class="source-title link" href="https://finopsllm.com/research/claude-code-october-8-billion-tokens-list-price">Claude Code in October: 8.4 Billion Tokens, 93% Cache, $4,323 at List Price</a><span class="badge badge-outline">Claude Code</span><p class="source-note">FinOps LLM</p></td>
+            <td>Log đã khử trùng lặp: 70,592 messages; tính cả subagent. Cache write chiếm 58% giá trị quy đổi.</td>
+            <td>Một máy; số USD theo giá niêm yết, không phải tiền thanh toán của gói thuê bao.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="apply" class="py-10 border-t border-base-300">
+    <p class="eyebrow text-primary mb-2">Bằng chứng trong repo</p>
+    <h2 class="text-3xl font-semibold mb-4">Ưu tiên xem lại rule điều phối Claude</h2>
+    <p class="max-w-3xl muted mb-6">Các điểm dưới đây là nhận định từ cấu hình được lưu trong dotfiles. Chưa đo runtime hoặc mức giảm token của máy hiện tại; chưa thay đổi cấu hình.</p>
+    <div class="grid lg:grid-cols-2 gap-8">
+      <article>
+        <div class="finding">
+          <h3 class="font-semibold text-lg">1. Điều phối đang là mặc định bắt buộc</h3>
+          <p class="mt-2"><code>claude/rules/common/agents.md:19-49</code> yêu cầu tự gọi planner/reviewer/TDD, luôn chạy song song và chia năm vai phản biện.</p>
+          <p class="mt-2 evidence">Đề xuất: một agent chính cho việc nhỏ; subagent có phạm vi rõ và kết quả ngắn cho việc độc lập. Giữ review riêng khi cần kiểm chứng độc lập.</p>
+        </div>
+        <div class="finding">
+          <h3 class="font-semibold text-lg">2. Rule performance tăng thêm vòng phản biện</h3>
+          <p class="mt-2"><code>claude/rules/common/performance.md:43-47</code> thêm nhiều vòng critique và split-role. Phần chọn model còn mô tả dòng 4.5 trong khi settings đặt Opus 4.8.</p>
+          <p class="mt-2 evidence">Đề xuất: chọn effort theo độ khó, tăng khi có thất bại cụ thể; đánh giá lại nhận định về model thay vì dùng tỷ lệ năng lực cố định.</p>
+        </div>
+      </article>
+      <article>
+        <div class="finding">
+          <h3 class="font-semibold text-lg">3. Chưa thấy worker rẻ được cấu hình trong repo</h3>
+          <p class="mt-2"><code>claude/settings.json:2</code> đặt model chính <code>claude-opus-4-8</code>. Rule có nhắc <code>~/.claude/agents/</code>, nhưng định nghĩa agent không được lưu trong repo này.</p>
+          <p class="mt-2 evidence">Đề xuất: kiểm tra model thực tế của từng worker trước khi kết luận đã routing tiết kiệm. Không suy ra mọi worker đều dùng Opus từ file settings này.</p>
+        </div>
+        <div class="finding">
+          <h3 class="font-semibold text-lg">4. Cấu hình Codex được thấy có phạm vi hẹp</h3>
+          <p class="mt-2"><code>install.sh:72</code> liên kết <code>home/AGENTS.md</code> tới <code>~/.codex/AGENTS.md</code>. Repo chưa lưu Codex config hoặc định nghĩa subagent.</p>
+          <p class="mt-2 evidence">Đề xuất: giữ global instructions tập trung vào quy tắc chung; đo thử model/effort và context bàn giao trên task thật. Chưa có đủ bằng chứng để kết luận cấu hình Codex hiện tại tốn bao nhiêu.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="limits" class="py-10 border-t border-base-300">
+    <div class="grid md:grid-cols-2 gap-8">
+      <article>
+        <h2 class="text-2xl font-semibold mb-4">Cách đánh giá một thay đổi</h2>
+        <p>Giữ cùng task, snapshot repo, tiêu chí đạt và kiểm tra chất lượng. Đổi từng yếu tố: rule gọi agent, model worker, rồi lượng context. Chạy lặp lại và tính cả retry.</p>
+        <p class="mt-4 font-semibold text-primary">Chỉ số chính: tổng chi phí tất cả lần thử / số task đạt yêu cầu.</p>
+        <p class="mt-3 muted text-sm">Với gói thuê bao: ghi thêm mức hao quota và thời gian hoàn thành. Giá API quy đổi không xác định chính xác số tiền hay quota được tiết kiệm.</p>
+        <p class="mt-3 text-sm"><a class="link" href="https://omegaplusapi.com/blog/reduce-cli-agent-token-usage-2026">Phương pháp: Omega Plus</a> · <a class="link" href="https://developers.openai.com/blog/maintaining-software-with-the-gpt-6-family">Đối chứng từng instruction: OpenAI</a></p>
+      </article>
+      <article>
+        <h2 class="text-2xl font-semibold mb-4">Những kết luận cần tránh</h2>
+        <ul class="list-disc pl-5 space-y-3">
+          <li>Chạy song song nhanh hơn không tự chứng minh tổng token thấp hơn.</li>
+          <li>Chuyển sang model rẻ không đủ nếu số lần làm lại tăng.</li>
+          <li>Không áp dụng lỗi của một phiên bản CLI như hành vi cố hữu của mọi phiên bản.</li>
+          <li>Không cộng phần trăm tiết kiệm từ các benchmark khác nhau.</li>
+        </ul>
+      </article>
+    </div>
+    <details class="mt-8 p-5 rounded-box bg-base-200">
+      <summary class="font-semibold">Các nguồn đã loại vì ngoài khoảng ngày</summary>
+      <p class="mt-4 muted text-sm">Không đưa vào tập 10 bài: OpenAI “Rethinking skills and prompts for GPT-6 Astra” (11/09/2026); decost.ai “Where AI agent tokens go” (30/09/2026); capsul “Claude Code vs Codex CLI” (trang ghi Last revised 24/09/2026). Kết quả tìm kiếm không được dùng thay ngày trên bài.</p>
+    </details>
+  </section>
+  <footer class="pt-6 border-t border-base-300 text-sm muted">
+    Tổng hợp ngày 05/11/2026. Tìm kiếm theo ngày đăng, mở nội dung gốc và đối chiếu cấu hình repo. Không phải danh mục đầy đủ mọi bài trên web. Giao diện dùng Tailwind CSS + DaisyUI làm fallback vì dotfiles không có design system cho báo cáo.
+  </footer>
+</main>
+<script>
+  const platform = document.getElementById('platform');
+  const kind = document.getElementById('kind');
+  const rows = [...document.querySelectorAll('tbody tr')];
+  function filterSources() {
+    let shown = 0;
+    for (const row of rows) {
+      const matchesPlatform = platform.value === 'all' || row.dataset.platform.split(' ').includes(platform.value);
+      const matchesKind = kind.value === 'all' || row.dataset.kind === kind.value;
+      row.hidden = !(matchesPlatform && matchesKind);
+      if (!row.hidden) shown += 1;
+    }
+    document.getElementById('count').textContent = `Hiển thị ${shown} / ${rows.length} bài`;
+  }
+  platform.addEventListener('change', filterSources);
+  kind.addEventListener('change', filterSources);
+</script>
+</body>
+</html>
