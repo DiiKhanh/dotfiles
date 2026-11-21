@@ -48,6 +48,10 @@ DRY_RUN=1 ./install.sh  # preview without changing anything
 - Claude Code runtime/secrets: `settings.local.json`, `history.jsonl`,
   `sessions/`, `projects/`, caches, `.zsh_history`, `stats-cache.json`.
 - Anything installed by the bootstrap: `~/.oh-my-zsh`, `~/.sdkman`, `~/.nvm`.
+- **Git identities.** `git/.gitconfig` sets `user.useConfigOnly` and includes
+  the untracked `~/.config/git/local.gitconfig`, which holds per-directory
+  `[includeIf "gitdir:..."]` rules pointing at `[user]` name/email files.
+  Create these by hand on each machine; commits fail until an identity resolves.
 
 ## Notes / manual steps
 

@@ -42,3 +42,10 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+[user]
+	# Refuse to commit with a hostname-guessed email.
+	useConfigOnly = true
+# Identities and per-directory includeIf rules are machine-local and untracked
+# (this repo is public). Keep this include last so it can override the above.
+[include]
+	path = ~/.config/git/local.gitconfig
