@@ -8,7 +8,11 @@
       "Read(~/.ssh/**)",
       "Read(~/.aws/**)",
       "Read(//**/.env)",
-      "Read(//**/.env.*)"
+      "Read(//**/.env.*)",
+      "Bash(glab auth status --show-token*)",
+      "Bash(glab auth status -t*)",
+      "Bash(glab config get token*)",
+      "Bash(security find-generic-password*)"
     ]
   },
   "model": "opus",
