@@ -51,6 +51,7 @@ echo "Dotfiles: $DOTFILES"
 echo
 
 echo "Zsh:"
+link "zsh/.zshenv"                "$HOME/.zshenv"
 link "zsh/.zshrc"                 "$HOME/.zshrc"
 link "zsh/.zprofile"              "$HOME/.zprofile"
 link "zsh/.zshrc.pre-oh-my-zsh"   "$HOME/.zshrc.pre-oh-my-zsh"

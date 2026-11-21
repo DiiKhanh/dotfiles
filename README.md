@@ -7,7 +7,7 @@ script, and get the familiar setup back.
 
 | Tool | Repo path | Symlinked to |
 |------|-----------|--------------|
-| Zsh | `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh`, `zsh/codex-prune.zsh` | `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` and `codex-prune.zsh` are sourced directly from the repo) |
+| Zsh | `zsh/.zshenv`, `zsh/.zshrc`, `zsh/.zprofile`, `zsh/.zshrc.pre-oh-my-zsh`, `zsh/fzf.zsh`, `zsh/codex-prune.zsh` | `~/.zshenv`, `~/.zshrc`, `~/.zprofile`, … (`fzf.zsh` and `codex-prune.zsh` are sourced directly from the repo) |
 | Git | `git/.gitconfig`, `git/ignore` | `~/.gitconfig`, `~/.config/git/ignore` |
 | Ghostty | `ghostty/` | `~/.config/ghostty` |
 | herdr | `herdr/config.toml`, `herdr/quota-status.sh` | `~/.config/herdr/config.toml`, `~/.config/herdr/quota-status.sh` |

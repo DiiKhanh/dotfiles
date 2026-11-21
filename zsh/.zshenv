@@ -1,0 +1,2 @@
+# Stop idle Chrome DevTools AXI bridges after 30 minutes.
+export CHROME_DEVTOOLS_AXI_IDLE_TIMEOUT_MS="${CHROME_DEVTOOLS_AXI_IDLE_TIMEOUT_MS-1800000}"
