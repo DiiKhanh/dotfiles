@@ -15,7 +15,7 @@ script, and get the familiar setup back.
 | yazi | `yazi/yazi.toml`, `yazi/theme.toml`, `yazi/flavors/` | `~/.config/yazi/yazi.toml`, `~/.config/yazi/theme.toml`, `~/.config/yazi/flavors` |
 | micro | `micro/settings.json`, `micro/colorschemes/`, `micro/syntax/` | `~/.config/micro/settings.json`, `~/.config/micro/colorschemes`, `~/.config/micro/syntax` |
 | Claude Code | `claude/settings.json`, `claude/rules/`, `home/AGENTS.md` | `~/.claude/settings.json`, `~/.claude/rules`, `~/.claude/CLAUDE.md` |
-| Codex | `home/AGENTS.md` | `~/.codex/AGENTS.md` |
+| Codex | `home/AGENTS.md`, `codex/rules/secrets.rules` | `~/.codex/AGENTS.md`, `~/.codex/rules/secrets.rules` |
 | OMP | `home/AGENTS.md` | `~/.omp/agent/AGENTS.md` |
 | opencode | `home/AGENTS.md` | `~/.config/opencode/AGENTS.md` |
 | SSH | `ssh/config.example` | seeded to `~/.ssh/config` if absent (not symlinked) |

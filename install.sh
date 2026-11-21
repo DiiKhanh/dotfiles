@@ -92,6 +92,8 @@ link "home/AGENTS.md"             "$HOME/.claude/CLAUDE.md"
 
 echo "Codex:"
 link "home/AGENTS.md"             "$HOME/.codex/AGENTS.md"
+# Link the file, not the dir: Codex writes persisted approvals to rules/default.rules.
+link "codex/rules/secrets.rules"  "$HOME/.codex/rules/secrets.rules"
 
 echo "OMP:"
 link "home/AGENTS.md"             "$HOME/.omp/agent/AGENTS.md"
